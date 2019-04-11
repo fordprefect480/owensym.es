@@ -51,8 +51,13 @@ namespace owensym.es
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseCookiePolicy();
-
+            app.UseCookiePolicy();            
+            app.Use(async (context, next) =>
+                {
+                    context.Response.Headers.Add("X-Frame-Options", "ALLOW-FROM https://dev.azure.com");
+                    await next();
+                });
+ 
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
