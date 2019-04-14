@@ -60,6 +60,10 @@ body {
     width: 40px;
 }
 
+a:hover {
+    text-decoration: none;
+}
+
 /* Grow Rotate */
 .hvr-grow-rotate {
     display: inline-block;
