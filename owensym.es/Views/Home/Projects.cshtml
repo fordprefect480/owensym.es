@@ -7,7 +7,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1 class="display-4">Projects</h1>
+<div class="col-sm text-center">
+    <h1 class="display-4" style="margin-bottom:1rem;">Projects</h1>
+</div>
 
 @foreach (var project in Model)
 {
@@ -16,7 +18,7 @@
             @if (project.ImagePath != null)
             {
                 <div class="col-md-4 align-self-center">
-                    <a href="@project.RepositoryURL" target="_blank"><img style="padding: 0 30px" src="@project.ImagePath" class="card-img" alt="@project.Name"></a>      
+                    <a href="@project.RepositoryURL" target="_blank"><img style="padding: 0 50px" src="@project.ImagePath" class="card-img" alt="@project.Name"></a>      
                 </div>
             }
             else
