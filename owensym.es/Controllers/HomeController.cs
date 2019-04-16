@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using owensym.es.Models;
+using owensym.es.Services;
 
 namespace owensym.es.Controllers
 {
@@ -14,9 +15,12 @@ namespace owensym.es.Controllers
         {
             return View();
         }
+
         public IActionResult Projects()
         {
-            return View();
+            var model = new StaticDataProjectService().GetProjects();
+
+            return View(model);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

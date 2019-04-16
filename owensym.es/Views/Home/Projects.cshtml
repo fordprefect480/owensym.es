@@ -1,62 +1,46 @@
-﻿
+﻿@using Humanizer;
+
+@model List<Project>
+
 @{
     ViewData["Title"] = "Projects";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Projects</h1>
+<h1 class="display-4">Projects</h1>
 
-<p>&nbsp;</p>
-
-<div class="card mb-3">
-  <div class="row no-gutters">
-    <div class="col-md-4 align-self-center">
-        <a href="https://github.com/TradeMe/PlayMe" target="_blank"><img style="padding: 0 30px" src="~/img/playme.png" class="card-img" alt="..."></a>      
+@foreach (var project in Model)
+{
+    <div class="card mb-3">
+        <div class="row no-gutters @project.BackgroundCssClass">
+            @if (project.ImagePath != null)
+            {
+                <div class="col-md-4 align-self-center">
+                    <a href="@project.RepositoryURL" target="_blank"><img style="padding: 0 30px" src="@project.ImagePath" class="card-img" alt="@project.Name"></a>      
+                </div>
+            }
+            else
+            {
+                <div class="col-md-4 align-self-center text-center">      
+                    <h1 class="display-4">@(new string(project.Name.Split(' ').Select(s => s[0]).ToArray()))</h1>
+                </div>
+            }
+            <div class="col-md-8 bg-white">
+                <div class="card-body">
+                    <h5 class="card-title"><a href="@project.RepositoryURL" target="_blank">@project.Name</a></h5>
+                    <p class="card-text">@project.Description</p>
+                    @if (project.Tags.Any())
+                    {
+                        <p>
+                            @foreach (var tag in project.Tags)
+                            {
+                                <span class="badge badge-pill badge-primary">@tag</span>
+                            }
+                        </p>                   
+                    }
+                    <p class="card-text border-bottom-0"><small class="text-muted">Last commit @project.LastUpdated.Humanize()</small></p>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="col-md-8">
-      <div class="card-body">
-        <h5 class="card-title"><a href="https://github.com/TradeMe/PlayMe" target="_blank">Play Me</a></h5>
-        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        <p>
-            <span class="badge badge-pill badge-primary">ASP.NET</span>
-            <span class="badge badge-pill badge-primary">Web API</span>
-            <span class="badge badge-pill badge-primary">MongoDB</span>
-            <span class="badge badge-pill badge-primary">Knockout.js</span>
-            <span class="badge badge-pill badge-primary">Durandal</span>
-            <span class="badge badge-pill badge-primary">SignalR</span>
-        </p>
-        <p class="card-text border-bottom-0"><small class="text-muted">Last updated 3 mins ago</small></p>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="card mb-3">
-  <div class="row no-gutters bg-warning">
-    <div class="col-md-4 align-self-center text-center">      
-        <h1 class="display-4">BT</h1>
-    </div>
-    <div class="col-md-8 bg-white">
-      <div class="card-body">
-        <h5 class="card-title"><a href="https://github.com/fordprefect480/bechdeltonight" target="_blank">Bechdel Tonight</a></h5>
-        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="card mb-3">
-  <div class="row no-gutters bg-info">
-    <div class="col-md-4 align-self-center text-center">      
-        <h1 class="display-4">XD</h1>
-    </div>
-    <div class="col-md-8 bg-white">
-      <div class="card-body">
-        <h5 class="card-title"><a href="https://github.com/fordprefect480/xepdash" target="_blank">XepDash</a></h5>
-        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-      </div>
-    </div>
-  </div>
-</div>
+}
