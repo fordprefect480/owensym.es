@@ -1,0 +1,4 @@
+This is a Brave Rewards publisher verification file.
+
+Domain: owensymes.azurewebsites.net
+Token: 9f9858d14b6bf670a551e6b4d3933763ccd8c677497c62e57c4f595ac21aa593
