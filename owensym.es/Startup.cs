@@ -53,11 +53,6 @@ namespace owensym.es
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseStaticFiles(new StaticFileOptions
-            {
-                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), ".well-known")),
-                RequestPath = "/.well-known"
-            });
 
             app.UseCookiePolicy();            
             app.Use(async (context, next) =>
