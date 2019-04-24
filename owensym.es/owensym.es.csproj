@@ -6,7 +6,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="wwwroot\.well-known\brave-rewards-verification.txt" />
+    <Content Include="wwwroot\.well-known\brave-rewards-verification.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 
