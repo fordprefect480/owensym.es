@@ -6,7 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="wwwroot\.well-known\brave-rewards-verification.txt" />
+    <Content Include="..\..\..\..\..\..\OpexConsulting%2524\RedirectedFolders\owen\Desktop\owensym.es\owensym.es\.well-known\brave-rewards-verification.txt">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+    <Content Include=".well-known\brave-rewards-verification.txt" />
   </ItemGroup>
 
 
