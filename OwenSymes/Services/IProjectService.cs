@@ -1,13 +1,13 @@
-﻿using owensym.es.Models;
+﻿using OwenSymes.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace owensym.es.Services
+namespace OwenSymes.Services
 {
     public interface IProjectService
     {
-        List<Project> GetProjects();
+        Task<List<Project>> GetProjects();
     }
 }

@@ -1,6 +1,6 @@
 using System;
 
-namespace owensym.es.Models
+namespace OwenSymes.Models
 {
     public class ErrorViewModel
     {

@@ -4,10 +4,10 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using owensym.es.Models;
-using owensym.es.Services;
+using OwenSymes.Models;
+using OwenSymes.Services;
 
-namespace owensym.es.Controllers
+namespace OwenSymes.Controllers
 {
     public class HomeController : Controller
     {
@@ -18,7 +18,7 @@ namespace owensym.es.Controllers
 
         public IActionResult Projects()
         {
-            var model = new StaticDataProjectService().GetProjects();
+            var model = new GithubProjectService().GetProjects();
 
             return View(model);
         }
