@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
+using owensym.es.Models;
 
 namespace owensym.es
 {
@@ -33,7 +34,7 @@ namespace owensym.es
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-
+            services.Configure<ApplicationOptions>(Configuration);
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 

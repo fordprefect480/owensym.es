@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.Extensions.Options
+@inject IOptionsMonitor<ApplicationOptions> OptionsAccessor
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -36,7 +39,7 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Projects">Projects</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Blog">Blog</a>
+                            <a class="nav-link text-dark" href="@OptionsAccessor.CurrentValue.BlogUrl" target="_blank">Blog</a>
                         </li>
                         <li class="ml-auto mr-1 icon-social hvr-grow-rotate hvr-rainbow">
                             <a href="#"><i class="fas fa-bolt"></i></a>
