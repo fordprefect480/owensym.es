@@ -1,0 +1,17 @@
+<footer>
+  <div class="container">
+    <div class="pull-md-left">
+      <a class="logo-font" routerLink="/">OS</a>
+      <span class="attribution">
+        &copy; {{ today | date: 'yyyy' }}.
+        Code forked from <a href="https://thinkster.io">Thinkster</a>'s <a href="https://github.com/gothinkster/realworld">RealWorld</a> project.
+        Code licensed under MIT.
+      </span>
+    </div>
+    <div class="pull-md-right">
+    <span *appShowAuthed="false" class="attribution"><a class="nav-link" routerLink="/login" routerLinkActive="active">Sign in</a></span>
+    <span *appShowAuthed="true" class="attribution"><a class="nav-link" routerLink="" (click)="logout()" routerLinkActive="active">Log out</a></span>
+
+  </div>
+</div>
+</footer>

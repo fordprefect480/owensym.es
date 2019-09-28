@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29306.81
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OwenSymes.API", "OwenSymes.API\OwenSymes.API.csproj", "{DEB816AF-B6A7-4033-813E-595B93210D28}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OwenSymes.API.Tests", "OwenSymes.API.IntegrationTests\OwenSymes.API.Tests.csproj", "{B3F6D232-6537-4C71-B333-8E29F747E50C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DEB816AF-B6A7-4033-813E-595B93210D28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DEB816AF-B6A7-4033-813E-595B93210D28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DEB816AF-B6A7-4033-813E-595B93210D28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DEB816AF-B6A7-4033-813E-595B93210D28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3F6D232-6537-4C71-B333-8E29F747E50C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3F6D232-6537-4C71-B333-8E29F747E50C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3F6D232-6537-4C71-B333-8E29F747E50C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3F6D232-6537-4C71-B333-8E29F747E50C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A9FCF3EA-F24B-4A0A-B1D7-405E71A0A5B1}
+	EndGlobalSection
+EndGlobal
