@@ -16,6 +16,10 @@ steps:
   displayName: 'Install Node.js'
 
 - script: |
+    cd Web
+    yarn install
+
+- script: |
     npm install -g @angular/cli
     npm install
     ng build --prod --base-href ./ && cp CNAME dist/CNAME
