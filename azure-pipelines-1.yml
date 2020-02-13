@@ -103,9 +103,7 @@ steps:
     demands:
     - npm
     - azureps
-
   steps:
-
     - task: Npm@1
       displayName: 'npm install'
       inputs:
