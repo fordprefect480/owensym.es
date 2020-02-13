@@ -6,12 +6,7 @@
 trigger:
 - master
 
-pool:
-  name: Hosted VS2017
-  demands:
-  - msbuild
-  - visualstudio
-  - vstest
+
 
 #Your build pipeline references an undefined variable named ‘Parameters.solution’. Create or edit the build pipeline for this YAML file, define the variable on the Variables tab. See https://go.microsoft.com/fwlink/?linkid=865972
 #Your build pipeline references an undefined variable named ‘Parameters.solution’. Create or edit the build pipeline for this YAML file, define the variable on the Variables tab. See https://go.microsoft.com/fwlink/?linkid=865972
@@ -23,52 +18,113 @@ pool:
 #Your build pipeline references an undefined variable named ‘Parameters.connectedServiceName’. Create or edit the build pipeline for this YAML file, define the variable on the Variables tab. See https://go.microsoft.com/fwlink/?linkid=865972
 #Your build pipeline references an undefined variable named ‘Parameters.WebAppName’. Create or edit the build pipeline for this YAML file, define the variable on the Variables tab. See https://go.microsoft.com/fwlink/?linkid=865972
 
+jobs:
+- job: API
+  displayName: API
+  pool:
+    name: Hosted VS2017
+    demands:
+    - msbuild
+    - visualstudio
+    - vstest
+  steps:
+    - task: NuGetToolInstaller@0
+      displayName: 'Use NuGet 4.4.1'
+      inputs:
+        versionSpec: 4.4.1
+
+    - task: NuGetCommand@2
+      displayName: 'NuGet restore'
+      inputs:
+        restoreSolution: '$(Parameters.solution)'
+
+    - task: VSBuild@1
+      displayName: 'Build solution **\*.sln'
+      inputs:
+        solution: '$(Parameters.solution)'
+        msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactstagingdirectory)\\"'
+        platform: '$(BuildPlatform)'
+        configuration: '$(BuildConfiguration)'
+
+    - task: AzureRmWebAppDeployment@4
+      displayName: 'Azure App Service Deploy: owensymes'
+      inputs:
+        azureSubscription: '$(Parameters.connectedServiceName)'
+        WebAppName: '$(Parameters.WebAppName)'
+        packageForLinux: '$(build.artifactstagingdirectory)/**/*.zip'
+
+    - task: PublishSymbols@2
+      displayName: 'Publish symbols path'
+      inputs:
+        SearchPattern: '**\bin\**\*.pdb'
+        PublishSymbols: false
+      continueOnError: true
+
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish Artifact: drop'
+      inputs:
+        PathtoPublish: '$(build.artifactstagingdirectory)'
+      condition: succeededOrFailed()
+
+pool:
+  name: Hosted VS2017
+  demands:
+  - npm
+  - azureps
+
 steps:
-- task: NuGetToolInstaller@0
-  displayName: 'Use NuGet 4.4.1'
+- task: Npm@1
+  displayName: 'npm install'
   inputs:
-    versionSpec: 4.4.1
+    workingDir: Web
+    verbose: false
 
-- task: NuGetCommand@2
-  displayName: 'NuGet restore'
+- task: Npm@1
+  displayName: 'npm build'
   inputs:
-    restoreSolution: '$(Parameters.solution)'
+    command: custom
+    workingDir: Web
+    verbose: false
+    customCommand: 'run build'
 
-- task: VSBuild@1
-  displayName: 'Build solution **\*.sln'
+- task: AzureFileCopy@2
+  displayName: 'AzureBlob File Copy'
   inputs:
-    solution: '$(Parameters.solution)'
-    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactstagingdirectory)\\"'
-    platform: '$(BuildPlatform)'
-    configuration: '$(BuildConfiguration)'
+    SourcePath: Web/dist
+    azureSubscription: 'Pay-As-You-Go (0965bb35-0dbf-4993-9dcb-5d75ccd0ca44)'
+    Destination: AzureBlob
+    storage: owensymesstorageaccount
+    ContainerName: '$web'
 
-- task: VSTest@2
-  displayName: 'VsTest - testAssemblies'
-  inputs:
-    testAssemblyVer2: |     
-     **\$(BuildConfiguration)\*test*.dll
-     !**\obj\**
-    platform: '$(BuildPlatform)'
-    configuration: '$(BuildConfiguration)'
-    diagnosticsEnabled: True
+- job: Web
+  displayName: Web
+  pool:
+    name: Hosted VS2017
+    demands:
+    - npm
+    - azureps
 
-- task: AzureRmWebAppDeployment@4
-  displayName: 'Azure App Service Deploy: owensymes'
-  inputs:
-    azureSubscription: '$(Parameters.connectedServiceName)'
-    WebAppName: '$(Parameters.WebAppName)'
-    packageForLinux: '$(build.artifactstagingdirectory)/**/*.zip'
+  steps:
 
-- task: PublishSymbols@2
-  displayName: 'Publish symbols path'
-  inputs:
-    SearchPattern: '**\bin\**\*.pdb'
-    PublishSymbols: false
-  continueOnError: true
+    - task: Npm@1
+      displayName: 'npm install'
+      inputs:
+        workingDir: Web
+        verbose: false
 
-- task: PublishBuildArtifacts@1
-  displayName: 'Publish Artifact: drop'
-  inputs:
-    PathtoPublish: '$(build.artifactstagingdirectory)'
-  condition: succeededOrFailed()
+    - task: Npm@1
+      displayName: 'npm build'
+      inputs:
+        command: custom
+        workingDir: Web
+        verbose: false
+        customCommand: 'run build'
 
+    - task: AzureFileCopy@2
+      displayName: 'AzureBlob File Copy'
+      inputs:
+        SourcePath: Web/dist
+        azureSubscription: 'Pay-As-You-Go (0965bb35-0dbf-4993-9dcb-5d75ccd0ca44)'
+        Destination: AzureBlob
+        storage: owensymesstorageaccount
+        ContainerName: '$web'
