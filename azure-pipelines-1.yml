@@ -65,45 +65,14 @@ jobs:
       inputs:
         PathtoPublish: '$(build.artifactstagingdirectory)'
       condition: succeededOrFailed()
-
-pool:
-  name: Hosted VS2017
-  demands:
-  - npm
-  - azureps
-
-steps:
-- task: Npm@1
-  displayName: 'npm install'
-  inputs:
-    workingDir: Web
-    verbose: false
-
-- task: Npm@1
-  displayName: 'npm build'
-  inputs:
-    command: custom
-    workingDir: Web
-    verbose: false
-    customCommand: 'run build'
-
-- task: AzureFileCopy@2
-  displayName: 'AzureBlob File Copy'
-  inputs:
-    SourcePath: Web/dist
-    azureSubscription: 'Pay-As-You-Go (0965bb35-0dbf-4993-9dcb-5d75ccd0ca44)'
-    Destination: AzureBlob
-    storage: owensymesstorageaccount
-    ContainerName: '$web'
-
 - job: Web
   displayName: Web
   pool:
     name: Hosted VS2017
     demands:
-    - npm
-    - azureps
-  steps:
+      - npm
+      - azureps
+    steps:
     - task: Npm@1
       displayName: 'npm install'
       inputs:
@@ -118,7 +87,7 @@ steps:
         verbose: false
         customCommand: 'run build'
 
-    - task: AzureFileCopy@2
+    - task: AzureFileCopy@2    
       displayName: 'AzureBlob File Copy'
       inputs:
         SourcePath: Web/dist
