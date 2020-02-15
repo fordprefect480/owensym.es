@@ -6856,7 +6856,7 @@ footer .attribution {
     color: #fff
 }
 
-.article-page .article-content p {
+.article-page .article-content p, .article-page .article-content li {
     font-family: 'source serif pro',serif;
     font-size: 1.2rem;
     line-height: 1.8rem;
