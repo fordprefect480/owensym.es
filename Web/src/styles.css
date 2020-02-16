@@ -6856,11 +6856,17 @@ footer .attribution {
     color: #fff
 }
 
-.article-page .article-content p, .article-page .article-content li {
+.article-page .article-content p {
     font-family: 'source serif pro',serif;
     font-size: 1.2rem;
     line-height: 1.8rem;
     margin-bottom: 2rem
+}
+
+.article-page .article-content li {
+    font-family: 'source serif pro',serif;
+    font-size: 1.2rem;
+    line-height: 1.8rem;
 }
 
 .article-page .article-content h1,.article-page .article-content h2,.article-page .article-content h3,.article-page .article-content h4,.article-page .article-content h5,.article-page .article-content h6 {
@@ -7012,3 +7018,8 @@ a:hover {
         -webkit-transform: scale(1.1) rotate(4deg);
         transform: scale(1.1) rotate(4deg);
     }
+
+/* Custom */
+app-article-meta .btn {
+    margin-right: 0.5rem;
+}

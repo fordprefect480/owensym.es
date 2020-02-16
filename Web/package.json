@@ -27,6 +27,7 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.24",
     "@fortawesome/free-brands-svg-icons": "^5.11.1",
     "@fortawesome/free-solid-svg-icons": "^5.11.1",
+    "@microsoft/applicationinsights-web": "^2.4.4",
     "core-js": "^2.4.1",
     "marked": "^0.3.9",
     "rxjs": "^6.4.0",

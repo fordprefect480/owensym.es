@@ -6,6 +6,7 @@ import { ApiService } from './api.service';
 import { JwtService } from './jwt.service';
 import { User } from '../models';
 import { map ,  distinctUntilChanged } from 'rxjs/operators';
+import { ApplicationInsightsService } from '../../core/insights/application-insights.service';
 
 
 @Injectable()
@@ -19,7 +20,8 @@ export class UserService {
   constructor (
     private apiService: ApiService,
     private http: HttpClient,
-    private jwtService: JwtService
+    private jwtService: JwtService,
+    private applicationInsightsService: ApplicationInsightsService
   ) {}
 
   // Verify JWT in localstorage with server & load user's info.
@@ -45,6 +47,7 @@ export class UserService {
     this.currentUserSubject.next(user);
     // Set isAuthenticated to true
     this.isAuthenticatedSubject.next(true);
+    this.applicationInsightsService.setUserId(user.email);
   }
 
   purgeAuth() {
@@ -54,6 +57,7 @@ export class UserService {
     this.currentUserSubject.next({} as User);
     // Set auth status to false
     this.isAuthenticatedSubject.next(false);
+     this.applicationInsightsService.clearUserId();
   }
 
   attemptAuth(type, credentials): Observable<User> {
